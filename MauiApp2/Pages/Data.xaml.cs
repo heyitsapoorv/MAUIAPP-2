@@ -1,11 +1,15 @@
 ﻿namespace MauiApp2.Pages;
 
 public partial class DataPage : ContentPage
+
 {
+
     public DataPage(Data viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
+
+       
     }
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
@@ -20,6 +24,7 @@ public partial class DataPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+
     }
 
 

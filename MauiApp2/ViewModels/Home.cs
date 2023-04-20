@@ -9,9 +9,7 @@ namespace MauiApp2.ViewModels
     public partial class Home : Base
     {
         BLEService BLEService;
-
         public ObservableCollection<BLEDevice> Devices { get; } = new();
-
         public IAsyncRelayCommand GoToDataPageAsyncCommand { get; }
         public IAsyncRelayCommand ScanNearbyDevicesAsyncCommand { get; }
         public IAsyncRelayCommand CheckBluetoothAvailabilityAsyncCommand { get; }
@@ -19,13 +17,11 @@ namespace MauiApp2.ViewModels
         public Home(BLEService bluetoothLEService)
         {
             Title = $"Scan and select device";
-
             BLEService = bluetoothLEService;
-
             GoToDataPageAsyncCommand = new AsyncRelayCommand<BLEDevice>(async (device) => await GoToDataPageAsync(device));
-
             ScanNearbyDevicesAsyncCommand = new AsyncRelayCommand(ScanDevicesAsync);
             CheckBluetoothAvailabilityAsyncCommand = new AsyncRelayCommand(CheckBluetoothAvailabilityAsync);
+
         }
 
         async Task GoToDataPageAsync(BLEDevice device)
@@ -35,7 +31,6 @@ namespace MauiApp2.ViewModels
                 await BLEService.ShowToastAsync($"Bluetooth adapter is scanning. Try again.");
                 return;
             }
-
             if (device == null)
             {
                 return;

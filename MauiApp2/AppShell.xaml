@@ -38,5 +38,22 @@
         </ShellContent>
     </FlyoutItem>
 
+    <FlyoutItem Title="Formula's"
+                FlyoutIcon="{StaticResource IconHeartRate}">
+        <ShellContent ContentTemplate="{DataTemplate pages:Formulaa}"
+                      Route="Formulaa">
+        </ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Batches"
+                FlyoutIcon="{StaticResource IconHeartRate}">
+        <ShellContent ContentTemplate="{DataTemplate pages:Batches}"
+                      Route="Batches">
+        </ShellContent>
+    </FlyoutItem>
+
+    <ShellContent ContentTemplate="{DataTemplate pages:Formulaa}"
+                      Route="Ingredients">
+    </ShellContent>
+    
 
 </Shell>

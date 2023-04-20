@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+
+    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp2.Pages.DataPage"
+             xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="True"
              xmlns:viewmodel="clr-namespace:MauiApp2.ViewModels"
-             x:DataType="viewmodel:Data"
+             
+             
              Title="{Binding Title}">
 
     <Grid x:Name="HeartRatePageGrid"
@@ -18,61 +21,126 @@
         <StackLayout Grid.RowSpan="2"
                      Grid.ColumnSpan="2"
                      BackgroundColor="Transparent">
+            
             <Grid RowDefinitions="*,*,*,*,*,*"
                   RowSpacing="8"
                   HorizontalOptions="CenterAndExpand"
                   VerticalOptions="CenterAndExpand">
 
 
-                <Label Grid.Row="3"
+                <Label Grid.Row="1"
                        FontSize="20"
                        
                        Text="{Binding WeightValue}"
                        Style="{StaticResource ExtraLargeLabel}"
-                       HorizontalOptions="CenterAndExpand"/>
-
-
-                <Label Grid.Row="1"
-                      
-                       Text="{Binding TargetValue}"
+                       HorizontalOptions="CenterAndExpand"
+                       x:DataType="viewmodel:Data"/>
+                <Label Grid.Row="3"
+                       FontSize="20"
+                       
+                       Text="{Binding TargetWeightt}"
                        Style="{StaticResource MediumLabel}"
-                       HorizontalOptions="CenterAndExpand"/>
-                <Label  Grid.Row="1" 
+                       HorizontalOptions="CenterAndExpand"
+                       x:DataType="viewmodel:Data"/>
+
+
+
+                <Label  Grid.Row="3" 
+                        FontSize="20"
                     Text="Target Value"
        Style="{StaticResource MediumLabel}"
        HorizontalOptions="StartAndExpand" />
                 <Label  Grid.Row="1" 
-                    Text="{Binding ProgressPercentage}"
+                        FontSize="20"
+                    Text="{Binding ProgressPercentage, StringFormat='{}{0}%'}"
+                        
        Style="{StaticResource MediumLabel}"
-       HorizontalOptions="EndAndExpand" />
-
-
-                <Label Grid.Row="2"
-                       Text="{Binding Timestamp,StringFormat='Weight at {0:H:mm:ss zzz}'}"
-                       Style="{StaticResource MediumLabel}"
-                       HorizontalOptions="CenterAndExpand"/>
-
-                <Label Grid.Row="3"
-                       Text="{Binding BatteryLevel, StringFormat='Battery level is {0} %'}"
-                       Style="{StaticResource LargeLabel}"
-                       HorizontalOptions="CenterAndExpand" />
+       HorizontalOptions="End" />
                 
-                <ProgressBar Progress="{Binding ProgressPercentage}" HeightRequest="5" WidthRequest="100"  />
+
+
+              
+                <!--<Label Grid.Row="1"
+                       Text="{Binding Timestamp2,StringFormat='Weight at {0:H:mm:ss zzz}'}"
+                       FontSize="12"
+                       Style="{StaticResource MediumLabel}"
+                       HorizontalOptions="Start"/>-->
+                <Label Grid.Row="1"
+                       Text="{Binding Name}"
+                       FontSize="20"
+                       Style="{StaticResource MediumLabel}"
+                       HorizontalOptions="Start"/>
+                
+
+                
+                
+                <!--<ProgressBar Progress="{Binding ProgressPercentage}" HeightRequest="5" WidthRequest="1000"  />-->
+                <!--<progressBar:SfCircularProgressBar Progress="{Binding ProgressPercentage}" 
+                                             TrackFill="#33c15244" 
+                                             ProgressFill="#FFc15244"/>-->
+                <progressBar:SfCircularProgressBar Progress="{Binding ProgressPercentage}" 
+                                     TrackFill="#999999"
+                                     ProgressFill="{Binding ProgressColor}"/>
+
+                <!--<StackLayout BackgroundColor="#E6E6E6"
+             WidthRequest="250"
+             HeightRequest="1"
+             VerticalOptions="CenterAndExpand"
+             HorizontalOptions="CenterAndExpand"
+             Margin="10">
+                    <BoxView BackgroundColor="#E6E6E6" HeightRequest="200" />
+                    <BoxView BackgroundColor="{Binding ProgressColor}"
+             HeightRequest="{Binding ProgressPercentage}"
+              />
+                </StackLayout>-->
 
 
 
-                <Label Grid.Row="4"
+                <!--<Label Grid.Row="4"
                        Text="Connect to Bluetooth LE device."
                        Style="{StaticResource LargeLabel}"
-                       HorizontalOptions="CenterAndExpand"/>
+                       HorizontalOptions="CenterAndExpand"/>-->
+                <!--IsEnabled="{Binding CanGoNext}"-->
+                <Button 
+                Grid.Row="4"
+                
+                Margin="8"
+                Command="{Binding GoNextCommand} " 
+                
+                Text="Next" />
+                <Button 
+                Grid.Row="5"
+                
+                Margin="8"
+                Command="{Binding GoBackCommand}"
+                
+                Text="Finish" />
 
-                <Label Grid.Row="5"
-                       Text="Disconnect from Bluetooth LE device."
-                       Style="{StaticResource LargeLabel}"
-                       HorizontalOptions="CenterAndExpand"/>
+               
 
+                <Button 
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="5"
+                Command="{Binding TareCommand}" 
+                
+                Style="{StaticResource ButtonOutline}"
+                Text="Tare" />
             </Grid>
+            <!--<CollectionView x:Name="formulasListView" ItemsSource="{Binding Formulaaa}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            --><!--<Label Text="{Binding Name}"/>--><!--
+                            <Label Text="{Binding TargetWeight}"/>
+
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
         </StackLayout>
+
+
 
         <Button x:Name="ConnectToButton"
                 Grid.Row="1"
@@ -83,6 +151,8 @@
                 IsVisible="{Binding IsNotBusy}"
                 Style="{StaticResource ButtonOutline}"
                 Text="Connect" />
+
+        
 
         <Button x:Name="DisconnectFromButton"
                 Grid.Row="1"
